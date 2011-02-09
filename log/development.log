@@ -1,0 +1,878 @@
+  [4;36;1mSQL (2.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mselect sqlite_version(*)[0m
+  [4;36;1mSQL (1.4ms)[0m   [0;1mCREATE TABLE "schema_migrations" ("version" varchar(255) NOT NULL) [0m
+  [4;35;1mSQL (1.1ms)[0m   [0mCREATE UNIQUE INDEX "unique_schema_migrations" ON "schema_migrations" ("version")[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mSELECT version FROM schema_migrations[0m
+Migrating to CreateTasks (20110126113606)
+  [4;36;1mSQL (0.7ms)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" text, "begin" date, "duration" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20110126113606')[0m
+Migrating to CreateUsers (20110126115243)
+  [4;36;1mSQL (0.5ms)[0m   [0;1mCREATE TABLE "users" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "username" varchar(255), "email" varchar(255), "password_hash" varchar(255), "password_salt" varchar(255), "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20110126115243')[0m
+Migrating to TasksUsers (20110126124636)
+  [4;36;1mSQL (0.4ms)[0m   [0;1mALTER TABLE "tasks" ADD "user_id" integer[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20110126124636')[0m
+Migrating to CreateEntries (20110204170351)
+  [4;36;1mSQL (0.8ms)[0m   [0;1mCREATE TABLE "entries" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "begin" date, "duration" integer, "created_at" datetime, "updated_at" datetime) [0m
+  [4;35;1mSQL (0.6ms)[0m   [0mCREATE TEMPORARY TABLE "altered_tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" text, "begin" date, "duration" integer, "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tasks")[0m
+  [4;35;1mSQL (0.4ms)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" text, "duration" integer, "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;35;1mSQL (0.1ms)[0m   [0mPRAGMA index_list("altered_tasks")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "altered_tasks"[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TEMPORARY TABLE "altered_tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" text, "duration" integer, "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("tasks")[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mDROP TABLE "tasks"[0m
+  [4;36;1mSQL (0.2ms)[0m   [0;1mCREATE TABLE "tasks" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "description" text, "created_at" datetime, "updated_at" datetime, "user_id" integer) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("altered_tasks")[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mDROP TABLE "altered_tasks"[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20110204170351')[0m
+Migrating to TasksEntries (20110204170541)
+  [4;36;1mSQL (0.5ms)[0m   [0;1mALTER TABLE "entries" ADD "task_id" integer[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mINSERT INTO schema_migrations (version) VALUES ('20110204170541')[0m
+Migrating to DurationToFloat (20110208111917)
+  [4;36;1mSQL (0.3ms)[0m   [0;1mCREATE TEMPORARY TABLE "altered_entries" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "begin" date, "duration" integer, "created_at" datetime, "updated_at" datetime, "task_id" integer) [0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("entries")[0m
+  [4;36;1mSQL (0.3ms)[0m   [0;1mDROP TABLE "entries"[0m
+  [4;35;1mSQL (0.2ms)[0m   [0mCREATE TABLE "entries" ("id" INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "begin" date, "duration" float, "created_at" datetime, "updated_at" datetime, "task_id" integer) [0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("altered_entries")[0m
+  [4;35;1mSQL (0.1ms)[0m   [0mDROP TABLE "altered_entries"[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mINSERT INTO schema_migrations (version) VALUES ('20110208111917')[0m
+  [4;35;1mSQL (0.3ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mSELECT version FROM schema_migrations[0m
+  [4;35;1mSQL (0.1ms)[0m   [0m SELECT name
+ FROM sqlite_master
+ WHERE type = 'table' AND NOT name = 'sqlite_sequence'
+[0m
+  [4;36;1mSQL (0.1ms)[0m   [0;1mPRAGMA index_list("entries")[0m
+  [4;35;1mSQL (0.0ms)[0m   [0mPRAGMA index_list("tasks")[0m
+  [4;36;1mSQL (0.0ms)[0m   [0;1mPRAGMA index_list("users")[0m
+
+
+Processing ActionController::Base#index (for 127.0.0.1 at 2011-02-09 17:07:04) [GET]
+
+NameError (uninitialized constant ApplicationController::ControllerAuthentication):
+  app/controllers/application_controller.rb:2:in `<class:ApplicationController>'
+  app/controllers/application_controller.rb:1:in `<top (required)>'
+  app/controllers/tasks_controller.rb:1:in `<top (required)>'
+  <internal:prelude>:10:in `synchronize'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (17.1ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:07:51) [GET]
+Redirected to http://localhost:3000/login
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 8ms (DB: 0) | 302 Found [http://localhost/]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-09 17:07:51) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+ERROR: compiling _run_erb_app47views47sessions47new46html46erb RAISED /Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/sessions/new.html.erb:5: syntax error, unexpected ')'
+...t(( form_tag sessions_path do ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/sessions/new.html.erb:17: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/sessions/new.html.erb:19: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _run_erb_app47views47sessions47new46html46erb(local_assigns)
+            old_output_buffer = output_buffer;;@output_buffer = '';  __in_erb_template=true ;  title "Log in" ; @output_buffer.concat "\n\n<p>Don't have an account? "
+
+; @output_buffer.concat(( link_to "Sign up!", signup_path ).to_s); @output_buffer.concat "</p>\n\n"
+
+; @output_buffer.concat(( form_tag sessions_path do ).to_s); @output_buffer.concat "\n  <p>\n    "
+
+; @output_buffer.concat(( label_tag :login, "Username or Email Address" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( text_field_tag :login, params[:login] ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( label_tag :password ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( password_field_tag :password ).to_s); @output_buffer.concat "\n  </p>\n  <p>"
+
+; @output_buffer.concat(( submit_tag "Log in" ).to_s); @output_buffer.concat "</p>\n"
+;  end ; @output_buffer.concat "\n"
+; @output_buffer.force_encoding(__ENCODING__)
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `module_eval'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `compile!'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:348:in `_render_with_layout'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `block in render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `block in perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_with_rescue'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action_with_flash'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+ActionView::TemplateError (/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/sessions/new.html.erb:5: syntax error, unexpected ')'
+...t(( form_tag sessions_path do ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/sessions/new.html.erb:17: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/sessions/new.html.erb:19: syntax error, unexpected keyword_end, expecting ')') on line #5 of app/views/sessions/new.html.erb:
+2: 
+3: <p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
+4: 
+5: <%= form_tag sessions_path do %>
+6:   <p>
+7:     <%= label_tag :login, "Username or Email Address" %><br />
+8:     <%= text_field_tag :login, params[:login] %>
+
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (16.4ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-09 17:11:31) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined method `title' for #<ActionView::Base:0x00000100f0a3d8>) on line #1 of app/views/sessions/new.html.erb:
+1: <% title "Log in" %>
+2: 
+3: <p>Don't have an account? <%= link_to "Sign up!", signup_path %></p>
+4: 
+
+    app/views/sessions/new.html.erb:1
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (41.0ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-09 17:13:05) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined method `content_for?' for #<ActionView::Base:0x0000010203f748>) on line #4 of app/views/layouts/application.html.erb:
+1: <!DOCTYPE html>
+2: <html>
+3:   <head>
+4:     <title><%= content_for?(:title) ? yield(:title) : "Untitled" %></title>
+5:     <%= stylesheet_link_tag "application" %>
+6:     <%= javascript_include_tag :defaults %>
+7:     <%= csrf_meta_tag %>
+
+    app/views/layouts/application.html.erb:4
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (16.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-09 17:13:42) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined local variable or method `csrf_meta_tag' for #<ActionView::Base:0x000001040fcc88>) on line #7 of app/views/layouts/application.html.erb:
+4:     <title>Task Time Tracker</title>
+5:     <%= stylesheet_link_tag "application" %>
+6:     <%= javascript_include_tag :defaults %>
+7:     <%= csrf_meta_tag %>
+8:     <%= yield(:head) %>
+9:   </head>
+10:   <body>
+
+    app/views/layouts/application.html.erb:7
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (18.2ms)
+Rendered rescues/_request_and_response (0.4ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-09 17:13:52) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined method `show_title?' for #<ActionView::Base:0x00000100e12d40>) on line #19 of app/views/layouts/application.html.erb:
+16: 							<%= link_to current_user.username, edit_current_user_path %> | <%= link_to 'logout', logout_path %>
+17: 						<% end %>
+18: 					</div>
+19:       <%= content_tag :h1, yield(:title) if show_title? %>
+20:       <%= yield %>
+21:     </div>
+22:   </body>
+
+    app/views/layouts/application.html.erb:19
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (15.7ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-09 17:14:09) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 8ms (View: 7, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-09 17:14:11) [GET]
+Rendering template within layouts/application
+Rendering users/new
+ERROR: compiling _run_erb_app47views47users47_form46html46erb_locals_form_object RAISED /Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:1: syntax error, unexpected ')'
+...oncat(( form_for @user do |f| ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _run_erb_app47views47users47_form46html46erb_locals_form_object(local_assigns)
+            old_output_buffer = output_buffer;form = local_assigns[:form];object = local_assigns[:object];;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat(( form_for @user do |f| ).to_s); @output_buffer.concat "\n  "
+; @output_buffer.concat(( f.error_messages ).to_s); @output_buffer.concat "\n  <p>\n    "
+
+; @output_buffer.concat(( f.label :username ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.text_field :username ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :email, "Email Address" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.text_field :email ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :password ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.password_field :password ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :password_confirmation, "Confirm Password" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.password_field :password_confirmation ).to_s); @output_buffer.concat "\n  </p>\n  <p>"
+
+; @output_buffer.concat(( f.submit (@user.new_record? ? "Sign up" : "Update") ).to_s); @output_buffer.concat "</p>\n"
+;  end ; @output_buffer.concat "\n"
+; @output_buffer.force_encoding(__ENCODING__)
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `module_eval'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `compile!'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:20:in `block in render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `block in benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:19:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:44:in `render_partial'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/partials.rb:184:in `render_partial'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:276:in `render'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/new.html.erb:5:in `_run_erb_app47views47users47new46html46erb'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:34:in `block in render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:306:in `with_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:30:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:348:in `_render_with_layout'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `block in render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `block in perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_with_rescue'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action_with_flash'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+ActionView::TemplateError (/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:1: syntax error, unexpected ')'
+...oncat(( form_for @user do |f| ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:24: syntax error, unexpected keyword_end, expecting ')') on line #1 of app/views/users/_form.html.erb:
+1: <%= form_for @user do |f| %>
+2:   <%= f.error_messages %>
+3:   <p>
+4:     <%= f.label :username %><br />
+
+    app/views/users/new.html.erb:5
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (46.0ms)
+Rendered rescues/_request_and_response (0.2ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-09 17:14:28) [GET]
+Rendering template within layouts/application
+Rendering users/new
+ERROR: compiling _run_erb_app47views47users47_form46html46erb_locals_form_object RAISED /Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:1: syntax error, unexpected ')'
+...oncat(( form_for @user do |f| ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _run_erb_app47views47users47_form46html46erb_locals_form_object(local_assigns)
+            old_output_buffer = output_buffer;form = local_assigns[:form];object = local_assigns[:object];;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat(( form_for @user do |f| ).to_s); @output_buffer.concat "\n  "
+; @output_buffer.concat(( f.error_messages ).to_s); @output_buffer.concat "\n  <p>\n    "
+
+; @output_buffer.concat(( f.label :username ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.text_field :username ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :email, "Email Address" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.text_field :email ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :password ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.password_field :password ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :password_confirmation, "Confirm Password" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.password_field :password_confirmation ).to_s); @output_buffer.concat "\n  </p>\n  <p>"
+
+; @output_buffer.concat(( f.submit (@user.new_record? ? "Sign up" : "Update") ).to_s); @output_buffer.concat "</p>\n"
+;  end ; @output_buffer.concat "\n"
+; @output_buffer.force_encoding(__ENCODING__)
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `module_eval'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `compile!'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:20:in `block in render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `block in benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:19:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:44:in `render_partial'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/partials.rb:184:in `render_partial'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:276:in `render'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/new.html.erb:5:in `_run_erb_app47views47users47new46html46erb'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:34:in `block in render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:306:in `with_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:30:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:348:in `_render_with_layout'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `block in render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `block in perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_with_rescue'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action_with_flash'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+ActionView::TemplateError (/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:1: syntax error, unexpected ')'
+...oncat(( form_for @user do |f| ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:24: syntax error, unexpected keyword_end, expecting ')') on line #1 of app/views/users/_form.html.erb:
+1: <%= form_for @user do |f| %>
+2:   <%= f.error_messages %>
+3:   <p>
+4:     <%= f.label :username %><br />
+
+    app/views/users/new.html.erb:5
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (19.1ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-09 17:14:37) [GET]
+Rendering template within layouts/application
+Rendering users/new
+ERROR: compiling _run_erb_app47views47users47_form46html46erb_locals_form_object RAISED /Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:1: syntax error, unexpected ')'
+...oncat(( form_for @user do |f| ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:24: syntax error, unexpected keyword_end, expecting ')'
+Function body:           def _run_erb_app47views47users47_form46html46erb_locals_form_object(local_assigns)
+            old_output_buffer = output_buffer;form = local_assigns[:form];object = local_assigns[:object];;@output_buffer = '';  __in_erb_template=true ; @output_buffer.concat(( form_for @user do |f| ).to_s); @output_buffer.concat "\n  "
+; @output_buffer.concat(( f.error_messages ).to_s); @output_buffer.concat "\n  <p>\n    "
+
+; @output_buffer.concat(( f.label :username ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.text_field :username ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :email, "Email Address" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.text_field :email ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :password ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.password_field :password ).to_s); @output_buffer.concat "\n  </p>\n  <p>\n    "
+
+
+; @output_buffer.concat(( f.label :password_confirmation, "Confirm Password" ).to_s); @output_buffer.concat "<br />\n    "
+; @output_buffer.concat(( f.password_field :password_confirmation ).to_s); @output_buffer.concat "\n  </p>\n  <p>"
+
+; @output_buffer.concat(( f.submit (@user.new_record? ? "Sign up" : "Update") ).to_s); @output_buffer.concat "</p>\n"
+;  end ; @output_buffer.concat "\n"
+; @output_buffer.force_encoding(__ENCODING__)
+          ensure
+            self.output_buffer = old_output_buffer
+          end
+Backtrace: /Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `module_eval'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:77:in `compile!'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:61:in `compile'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:28:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:20:in `block in render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `block in benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:26:in `benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:19:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable_partial.rb:44:in `render_partial'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/partials.rb:184:in `render_partial'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:276:in `render'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/new.html.erb:5:in `_run_erb_app47views47users47new46html46erb'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:34:in `block in render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:306:in `with_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/renderable.rb:30:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/template.rb:205:in `render_template'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:265:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:348:in `_render_with_layout'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_view/base.rb:262:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1250:in `render_for_file'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:945:in `render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `block in render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:51:in `render_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1326:in `default_render'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:1332:in `perform_action'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:617:in `call_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:610:in `perform_action_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `block in perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `block in ms'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/benchmark.rb:309:in `realtime'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activesupport-2.3.5/lib/active_support/core_ext/benchmark.rb:17:in `ms'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/benchmarking.rb:68:in `perform_action_with_benchmark'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/rescue.rb:160:in `perform_action_with_rescue'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/flash.rb:146:in `perform_action_with_flash'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:532:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/filters.rb:606:in `process_with_filters'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:391:in `process'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/base.rb:386:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/routing/route_set.rb:437:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:87:in `dispatch'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:121:in `_call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:130:in `block in build_middleware_stack'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:29:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/query_cache.rb:34:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:9:in `cache'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/query_cache.rb:28:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/activerecord-2.3.5/lib/active_record/connection_adapters/abstract/connection_pool.rb:361:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/string_coercion.rb:25:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/head.rb:9:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/methodoverride.rb:24:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/params_parser.rb:15:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/session/cookie_store.rb:93:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/failsafe.rb:26:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `block in call'
+<internal:prelude>:10:in `synchronize'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/lock.rb:11:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:114:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/reloader.rb:34:in `run'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/actionpack-2.3.5/lib/action_controller/dispatcher.rb:108:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/static.rb:31:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:46:in `block in call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `each'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/urlmap.rb:40:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rails-2.3.5/lib/rails/rack/log_tailer.rb:17:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/content_length.rb:13:in `call'
+/Users/ticolucci/.rvm/gems/ruby-1.8/gems/rack-1.0.1/lib/rack/handler/webrick.rb:50:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+/Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+ActionView::TemplateError (/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:1: syntax error, unexpected ')'
+...oncat(( form_for @user do |f| ).to_s); @output_buffer.concat...
+...                               ^
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:22: syntax error, unexpected keyword_ensure, expecting ')'
+/Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views/users/_form.html.erb:24: syntax error, unexpected keyword_end, expecting ')') on line #1 of app/views/users/_form.html.erb:
+1: <%= form_for @user do |f| %>
+2:   <%= f.error_messages %>
+3:   <p>
+4:     <%= f.label :username %><br />
+
+    app/views/users/new.html.erb:5
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (20.6ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-09 17:15:09) [GET]
+Rendering template within layouts/application
+Rendering users/new
+Rendered users/_form (3.7ms)
+Completed in 23ms (View: 16, DB: 0) | 200 OK [http://localhost/signup]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-09 17:15:21) [POST]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "user"=>{"username"=>"ticolucci", "email"=>"ticolucci@gmail.com", "password"=>"forall2010", "password_confirmation"=>"forall2010"}, "commit"=>"Sign up"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'ticolucci') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'ticolucci@gmail.com') LIMIT 1[0m
+
+NameError (uninitialized constant User::BCrypt):
+  app/models/user.rb:32:in `prepare_password'
+  app/controllers/users_controller.rb:10:in `create'
+  <internal:prelude>:10:in `synchronize'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (18.4ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-09 17:18:29) [POST]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "user"=>{"username"=>"ticolucci", "email"=>"ticolucci@gmail.com", "password"=>"forall2010", "password_confirmation"=>"forall2010"}, "commit"=>"Sign up"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'ticolucci') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'ticolucci@gmail.com') LIMIT 1[0m
+  [4;36;1mUser Create (0.4ms)[0m   [0;1mINSERT INTO "users" ("username", "email", "password_hash", "password_salt", "created_at", "updated_at") VALUES('ticolucci', 'ticolucci@gmail.com', '$2a$10$aDUAPU6QUbUUIhq1I.wkXuhUPuZhoAmgVUEkA07NQ3W6xMDKFthTq', '$2a$10$aDUAPU6QUbUUIhq1I.wkXu', '2011-02-09 19:18:30', '2011-02-09 19:18:30')[0m
+Redirected to http://localhost:3000/
+Completed in 150ms (DB: 1) | 302 Found [http://localhost/users]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:18:30) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.3ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+Completed in 101ms (View: 41, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing UsersController#edit (for 127.0.0.1 at 2011-02-09 17:18:35) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering users/edit
+Rendered users/_form (3.6ms)
+Completed in 24ms (View: 17, DB: 0) | 200 OK [http://localhost/user/edit]
+
+
+Processing UsersController#update (for 127.0.0.1 at 2011-02-09 17:18:42) [PUT]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "user"=>{"username"=>"ticolucci", "email"=>"ticolucci@gmail.com", "password"=>"forall2010", "password_confirmation"=>"forall2010"}, "commit"=>"Update", "id"=>"1"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."username" = 'ticolucci' AND "users".id <> 1) LIMIT 1[0m
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."email" = 'ticolucci@gmail.com' AND "users".id <> 1) LIMIT 1[0m
+  [4;35;1mUser Update (0.4ms)[0m   [0mUPDATE "users" SET "password_salt" = '$2a$10$uVFRp5jLQz8n5fiBoZkObe', "password_hash" = '$2a$10$uVFRp5jLQz8n5fiBoZkObeIi.1vr1u8SKwZKn9W.CBsQl42qbgfuO', "updated_at" = '2011-02-09 19:18:42' WHERE "id" = 1[0m
+Redirected to http://localhost:3000/
+Completed in 94ms (DB: 1) | 302 Found [http://localhost/users/1]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:18:42) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+Completed in 46ms (View: 5, DB: 0) | 200 OK [http://localhost/]
+
+
+Processing TasksController#new (for 127.0.0.1 at 2011-02-09 17:18:43) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/new
+Rendered tasks/_form (2.2ms)
+Completed in 25ms (View: 14, DB: 0) | 200 OK [http://localhost/tasks/new]
+
+
+Processing TasksController#create (for 127.0.0.1 at 2011-02-09 17:18:46) [POST]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "task"=>{"description"=>"teste"}, "commit"=>"Save changes"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Create (0.3ms)[0m   [0;1mINSERT INTO "tasks" ("description", "created_at", "updated_at", "user_id") VALUES('teste', '2011-02-09 19:18:46', '2011-02-09 19:18:46', 1)[0m
+Redirected to http://localhost:3000/tasks
+Completed in 15ms (DB: 0) | 302 Found [http://localhost/tasks]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:18:46) [GET]
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 22ms (View: 11, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing EntriesController#new (for 127.0.0.1 at 2011-02-09 17:18:48) [GET]
+  Parameters: {"task_id"=>"1"}
+  [4;36;1mTask Load (0.1ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering entries/new
+Rendered entries/_form (11.4ms)
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 41ms (View: 31, DB: 0) | 200 OK [http://localhost/tasks/1/entries/new]
+
+
+Processing EntriesController#create (for 127.0.0.1 at 2011-02-09 17:18:52) [POST]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "entry"=>{"begin(1i)"=>"2011", "begin(2i)"=>"2", "begin(3i)"=>"9", "duration"=>"12"}, "commit"=>"Save changes", "task_id"=>"1"}
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+  [4;35;1mEntry Load (0.2ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries"."task_id" = 1) [0m
+  [4;36;1mEntry Create (0.3ms)[0m   [0;1mINSERT INTO "entries" ("begin", "duration", "created_at", "updated_at", "task_id") VALUES('2011-02-09', 12.0, '2011-02-09 19:18:52', '2011-02-09 19:18:52', 1)[0m
+Redirected to http://localhost:3000/tasks
+Completed in 48ms (DB: 1) | 302 Found [http://localhost/tasks/1/entries]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:18:52) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.4ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 32ms (View: 19, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing EntriesController#edit (for 127.0.0.1 at 2011-02-09 17:18:54) [GET]
+  Parameters: {"task_id"=>"1", "id"=>"1"}
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+  [4;35;1mEntry Load (0.2ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering entries/edit
+Rendered entries/_form (5.3ms)
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 29ms (View: 19, DB: 1) | 200 OK [http://localhost/tasks/1/entries/1/edit]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:18:56) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 55ms (View: 40, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing EntriesController#new (for 127.0.0.1 at 2011-02-09 17:18:57) [GET]
+  Parameters: {"task_id"=>"1"}
+  [4;36;1mTask Load (0.1ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering entries/new
+Rendered entries/_form (5.2ms)
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 24ms (View: 13, DB: 0) | 200 OK [http://localhost/tasks/1/entries/new]
+
+
+Processing EntriesController#create (for 127.0.0.1 at 2011-02-09 17:19:02) [POST]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "entry"=>{"begin(1i)"=>"2011", "begin(2i)"=>"2", "begin(3i)"=>"8", "duration"=>"11.7"}, "commit"=>"Save changes", "task_id"=>"1"}
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+  [4;35;1mEntry Load (0.2ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries"."task_id" = 1) [0m
+  [4;36;1mEntry Create (0.3ms)[0m   [0;1mINSERT INTO "entries" ("begin", "duration", "created_at", "updated_at", "task_id") VALUES('2011-02-08', 11.7, '2011-02-09 19:19:02', '2011-02-09 19:19:02', 1)[0m
+Redirected to http://localhost:3000/tasks
+Completed in 44ms (DB: 1) | 302 Found [http://localhost/tasks/1/entries]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:19:02) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.4ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 30ms (View: 18, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-09 17:19:03) [POST]
+  Parameters: {"authenticity_token"=>"keEUIWdBhN4bdFIZtt6Hu3l7mAnqECtdNqIMB6tZncs=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.3ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.2ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 58ms (View: 15, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-09 17:20:42) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 26ms (View: 14, DB: 1) | 200 OK [http://localhost/tasks]

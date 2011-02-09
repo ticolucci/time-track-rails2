@@ -1,0 +1,62 @@
+<%= title "Time Sheet"%>
+<h2> <%=h @from_date.strftime("%b %Y") %>  </h2>
+
+
+<% form_tag time_sheet_download_path do %>
+	<p>
+		<%= select_date @from_date, :discard_day => true %> <%= submit_tag "Download" %> 
+	</p>
+<% end %>
+
+
+<% days_total = [] %>
+<div class="scrollable">
+	<table border="3" cellspacing="3" cellpadding="5">
+		<tr>
+			<th>Day</th>
+			<% (@from_date.day..@from_date.end_of_month.day).each do |day| %>
+				<th><%=h day %></th>
+				<% days_total[day-1] = 0 %>
+			<% end %>
+		</tr>
+		<tr>
+			<th>Task\Week_Day</th>
+			<% date = @from_date.dup %>
+			<% (@from_date.day..@from_date.end_of_month.day).each do |day| %>
+				<th><%=h Date::ABBR_DAYNAMES[date.wday] %></th>
+				<% date += 1 %>
+			<% end %>
+		</tr>
+	
+		<% @tasks.each do |task| %>
+			<tr>
+				<td><%=h task.description %></td>
+				<% entries = task.entries.sort.select {|e| e.begin >= @from_date} %>
+				<% (@from_date.day..@from_date.end_of_month.day).each do |day| %>
+					<td>
+						<% if entries.empty? %>
+							0
+						
+						<% else %>
+						  <%=
+						 		task_duration =  entries.first.begin.day == day ? entries.shift.duration : 0 
+								days_total[day-1] += task_duration
+								task_duration
+							%>
+						<% end %>
+					</td>
+				<% end %>
+			</tr>
+		<% end %>
+		<tr>
+			<td><strong>Total per day<strong></td>
+			<% days_total.each do |day_total| %>
+				<td><strong><%=h day_total %><strong></td>
+			<% end %>
+		</tr>
+	</table>
+</div>
+
+<h3>Total of hours: <strong><%=h days_total.sum %></strong></h3>
+
+<%= link_to 'Back', :back %>
