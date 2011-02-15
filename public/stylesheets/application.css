@@ -82,5 +82,6 @@ a {
 .scrollable {
 	margin: 0 auto;
 	width: 90%;
-	overflow-x: scroll;
+	height: 600px;
+	overflow: auto;
 }

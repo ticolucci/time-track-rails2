@@ -1023,3 +1023,179 @@ Rendering template within layouts/application
 Rendering tasks/index
   [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
 Completed in 59ms (View: 16, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 10:49:20) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.3ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.2ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 35ms (View: 13, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:12:27) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.3ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+
+TypeError (can't convert Fixnum into String):
+  app/controllers/tasks_controller.rb:102:in `generate_table'
+  app/controllers/tasks_controller.rb:50:in `time_sheet'
+  <internal:prelude>:10:in `synchronize'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (50.7ms)
+Rendered rescues/_request_and_response (1.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:12:56) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.3ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+
+NoMethodError (undefined method `tail' for #<Array:0x000001014521d8>):
+  app/controllers/tasks_controller.rb:102:in `generate_table'
+  app/controllers/tasks_controller.rb:50:in `time_sheet'
+  <internal:prelude>:10:in `synchronize'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (17.1ms)
+Rendered rescues/_request_and_response (0.3ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:16:25) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 34ms (View: 12, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:19:25) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.4ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 38ms (View: 14, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:22:09) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.3ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 57ms (View: 6, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:22:36) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"1", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.2ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 54ms (View: 7, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:24:45) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"1", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.3ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 28ms (View: 6, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:24:51) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2011", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 27ms (View: 6, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:24:56) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.3ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 53ms (View: 5, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:27:05) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.4ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 28ms (View: 5, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:29:23) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 28ms (View: 6, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet_download (for 127.0.0.1 at 2011-02-15 11:29:24) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Download"}
+  [4;36;1mUser Load (0.1ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.2ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering tasks/time_sheet_download
+Completed in 54ms (View: 6, DB: 1) | 200 OK [http://localhost/time_sheet_download]
+
+
+Processing TasksController#time_sheet_download (for 127.0.0.1 at 2011-02-15 11:29:55) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Download"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering tasks/time_sheet_download
+Completed in 27ms (View: 6, DB: 1) | 200 OK [http://localhost/time_sheet_download]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:33:03) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 35ms (View: 11, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:33:31) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "date"=>{"year"=>"2009", "month"=>"2", "day"=>"1"}, "commit"=>"Generate"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.3ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks".user_id = 1) [0m
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/time_sheet
+Completed in 36ms (View: 13, DB: 1) | 200 OK [http://localhost/time_sheet]

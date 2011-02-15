@@ -1,11 +1,9 @@
 <%=h @from_date.strftime("%b %Y") %>
 
-<% days_total = [] %>
-Month Day<% (@from_date.day..@from_date.end_of_month.day).each do |day|; %>;<%=h day %><% days_total[day-1] = 0 ;%><% end %>
-Task\Week Day<% date = @from_date.dup %><% (@from_date.day..@from_date.end_of_month.day).each do |day| %>;<%=h Date::ABBR_DAYNAMES[date.wday] %><% date += 1 %><% end %>
-<% @tasks.each do |task|; %><%=h task.description.chomp %><% entries = task.entries.sort.select {|e| e.begin >= @from_date} ;%><% (@from_date.day..@from_date.end_of_month.day).each do |day|; %>;<% if entries.empty? %>0<% else %><%= task_duration =  entries.first.begin.day == day ? entries.shift.duration : 0 ;days_total[day-1] += task_duration; task_duration %><% end %><% end %>
+<% @table_trans.each do |row|; %><% row.each do |item|; %> <%= item ;%> ;<% end %>
 <% end %>
 
-Total per day<% days_total.each do |day_total|; %>;<%=h day_total %><% end %>
+Total of hours;<%=h @days_total_sum %>
 
-Total of hours;<%=h days_total.sum %>
+
+
