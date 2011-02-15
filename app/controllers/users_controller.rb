@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     if @user.save
       session[:user_id] = @user.id
       flash[:notice] = "Thank you for signing up! You are now logged in."
-      redirect_to "/"
+      redirect_to root_url
     else
       render :action => 'new'
     end
@@ -24,7 +24,7 @@ class UsersController < ApplicationController
     @user = current_user
     if @user.update_attributes(params[:user])
       flash[:notice] = "Your profile has been updated."
-      redirect_to "/"
+      redirect_to root_url
     else
       render :action => 'edit'
     end

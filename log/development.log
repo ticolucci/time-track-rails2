@@ -876,3 +876,150 @@ Rendering template within layouts/application
 Rendering tasks/index
   [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
 Completed in 26ms (View: 14, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-15 10:42:40) [GET]
+Redirected to http://localhost:3000/login
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 7ms (DB: 0) | 302 Found [http://localhost/]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:42:40) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 39ms (View: 37, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing UsersController#new (for 127.0.0.1 at 2011-02-15 10:42:42) [GET]
+Rendering template within layouts/application
+Rendering users/new
+Rendered users/_form (4.3ms)
+Completed in 68ms (View: 42, DB: 0) | 200 OK [http://localhost/signup]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 10:42:56) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "user"=>{"username"=>"ticolucci", "email"=>"ticolucci@gmail.com", "password"=>"forall2010", "password_confirmation"=>"forall2010"}, "commit"=>"Sign up"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'ticolucci') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'ticolucci@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering users/new
+Rendered users/_form (7.8ms)
+Completed in 22ms (View: 10, DB: 0) | 200 OK [http://localhost/users]
+
+
+Processing UsersController#create (for 127.0.0.1 at 2011-02-15 10:43:03) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "user"=>{"username"=>"ticolucci", "email"=>"ticolucci@gmail.com", "password"=>"forall2010", "password_confirmation"=>"forall2010"}, "commit"=>"Sign up"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT "users".id FROM "users" WHERE ("users"."username" = 'ticolucci') LIMIT 1[0m
+  [4;35;1mUser Load (0.1ms)[0m   [0mSELECT "users".id FROM "users" WHERE ("users"."email" = 'ticolucci@gmail.com') LIMIT 1[0m
+Rendering template within layouts/application
+Rendering users/new
+Rendered users/_form (7.0ms)
+Completed in 48ms (View: 9, DB: 0) | 200 OK [http://localhost/users]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-15 10:43:07) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 4ms (View: 3, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-15 10:43:12) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "login"=>"ticolucci", "password"=>"forall2010", "commit"=>"Log in"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."username" = 'ticolucci') LIMIT 1[0m
+Redirected to http://localhost:3000/
+Completed in 91ms (DB: 0) | 302 Found [http://localhost/sessions]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-15 10:43:12) [GET]
+  [4;35;1mUser Load (0.4ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 132ms (View: 25, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing TasksController#new to #<task:0x00000100878d30> (for 127.0.0.1 at 2011-02-15 10:43:16) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+ActionView::MissingTemplate (Missing template tasks/new.erb in view path /Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views):
+  <internal:prelude>:10:in `synchronize'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TasksController#new (for 127.0.0.1 at 2011-02-15 10:47:36) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/new
+Rendered tasks/_form (30.0ms)
+Completed in 55ms (View: 42, DB: 0) | 200 OK [http://localhost/tasks/new]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-15 10:47:48) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 27ms (View: 15, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing TasksController#new to #<task:0x00000101533ae8> (for 127.0.0.1 at 2011-02-15 10:47:51) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+
+ActionView::MissingTemplate (Missing template tasks/new.erb in view path /Users/ticolucci/Documents/Repositorios/time_tracker-v2/app/views):
+  <internal:prelude>:10:in `synchronize'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+  /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendering rescues/layout (internal_server_error)
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-15 10:48:17) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 35ms (View: 22, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing TasksController#new (for 127.0.0.1 at 2011-02-15 10:48:19) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/new
+Rendered tasks/_form (2.2ms)
+Completed in 16ms (View: 6, DB: 0) | 200 OK [http://localhost/tasks/new]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-15 10:48:20) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 27ms (View: 14, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing EntriesController#new (for 127.0.0.1 at 2011-02-15 10:48:22) [GET]
+  Parameters: {"task_id"=>"1"}
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering entries/new
+Rendered entries/_form (12.3ms)
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 44ms (View: 33, DB: 0) | 200 OK [http://localhost/tasks/1/entries/new]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-15 10:48:24) [GET]
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.3ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 59ms (View: 16, DB: 1) | 200 OK [http://localhost/tasks]
