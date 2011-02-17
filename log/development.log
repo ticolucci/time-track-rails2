@@ -1199,3 +1199,142 @@ Processing TasksController#time_sheet (for 127.0.0.1 at 2011-02-15 11:33:31) [PO
 Rendering template within layouts/application
 Rendering tasks/time_sheet
 Completed in 36ms (View: 13, DB: 1) | 200 OK [http://localhost/time_sheet]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-17 14:46:46) [GET]
+  [4;36;1mUser Load (0.3ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 173ms (View: 30, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2011-02-17 14:46:49) [GET]
+Redirected to http://localhost:3000/
+Completed in 2ms (DB: 0) | 302 Found [http://localhost/logout]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-17 14:46:49) [GET]
+Redirected to http://localhost:3000/login
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://localhost/]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-17 14:46:49) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+
+ActionView::TemplateError (undefined method `set_focus_on' for #<ActionView::Base:0x00000100e03048>) on line #10 of app/views/sessions/new.html.erb:
+7:     <%= label_tag :login, "Username or Email Address" %><br />
+8:     <%= text_field_tag :login, params[:login] %>
+9:   </p>
+10: 	<%= set_focus_on :login %>
+11: 
+12:   <p>
+13:     <%= label_tag :password %><br />
+
+    app/views/sessions/new.html.erb:10:in `block in _run_erb_app47views47sessions47new46html46erb'
+    app/views/sessions/new.html.erb:5
+    <internal:prelude>:10:in `synchronize'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:111:in `service'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/httpserver.rb:70:in `run'
+    /Users/ticolucci/.rvm/rubies/ruby-1.9.2-p0/lib/ruby/1.9.1/webrick/server.rb:183:in `block in start_thread'
+
+Rendered rescues/_trace (19.4ms)
+Rendered rescues/_request_and_response (1.0ms)
+Rendering rescues/layout (internal_server_error)
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-17 14:47:09) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 29ms (View: 27, DB: 0) | 200 OK [http://localhost/login]
+
+
+Processing SessionsController#create (for 127.0.0.1 at 2011-02-17 14:47:16) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "login"=>"ticolucci", "password"=>"forall2010", "commit"=>"Log in"}
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."username" = 'ticolucci') LIMIT 1[0m
+Redirected to http://localhost:3000/
+Completed in 89ms (DB: 0) | 302 Found [http://localhost/sessions]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-17 14:47:16) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+Completed in 53ms (View: 40, DB: 1) | 200 OK [http://localhost/]
+
+
+Processing TasksController#new (for 127.0.0.1 at 2011-02-17 14:47:18) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/new
+Rendered tasks/_form (2.3ms)
+Completed in 29ms (View: 17, DB: 0) | 200 OK [http://localhost/tasks/new]
+
+
+Processing TasksController#create (for 127.0.0.1 at 2011-02-17 14:47:19) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "task"=>{"description"=>"oi"}, "commit"=>"Save changes"}
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Create (0.5ms)[0m   [0mINSERT INTO "tasks" ("description", "created_at", "updated_at", "user_id") VALUES('oi', '2011-02-17 16:47:19', '2011-02-17 16:47:19', 1)[0m
+Redirected to http://localhost:3000/tasks
+Completed in 16ms (DB: 1) | 302 Found [http://localhost/tasks]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-17 14:47:19) [GET]
+  [4;36;1mUser Load (0.2ms)[0m   [0;1mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;35;1mTask Load (0.2ms)[0m   [0mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;36;1mEntry Load (0.3ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+  [4;35;1mEntry Load (0.2ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 2) [0m
+Completed in 28ms (View: 16, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing EntriesController#new (for 127.0.0.1 at 2011-02-17 14:47:21) [GET]
+  Parameters: {"task_id"=>"1"}
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+Rendering template within layouts/application
+Rendering entries/new
+Rendered entries/_form (13.1ms)
+  [4;35;1mUser Load (0.3ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+Completed in 45ms (View: 34, DB: 0) | 200 OK [http://localhost/tasks/1/entries/new]
+
+
+Processing EntriesController#create (for 127.0.0.1 at 2011-02-17 14:47:23) [POST]
+  Parameters: {"authenticity_token"=>"sjx05LubFq2ZIAC4IZHXo7NJ76P0jwT1GBa43vhrT3g=", "entry"=>{"begin(1i)"=>"2011", "begin(2i)"=>"2", "begin(3i)"=>"17", "duration"=>"123"}, "commit"=>"Save changes", "task_id"=>"1"}
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."id" = 1) [0m
+  [4;35;1mEntry Load (0.2ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries"."task_id" = 1) [0m
+  [4;36;1mEntry Create (0.4ms)[0m   [0;1mINSERT INTO "entries" ("begin", "duration", "created_at", "updated_at", "task_id") VALUES('2011-02-17', 123.0, '2011-02-17 16:47:23', '2011-02-17 16:47:23', 1)[0m
+Redirected to http://localhost:3000/tasks
+Completed in 25ms (DB: 1) | 302 Found [http://localhost/tasks/1/entries]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-17 14:47:23) [GET]
+  [4;35;1mUser Load (0.2ms)[0m   [0mSELECT * FROM "users" WHERE ("users"."id" = 1) [0m
+  [4;36;1mTask Load (0.2ms)[0m   [0;1mSELECT * FROM "tasks" WHERE ("tasks"."user_id" = 1) [0m
+Rendering template within layouts/application
+Rendering tasks/index
+  [4;35;1mEntry Load (0.4ms)[0m   [0mSELECT * FROM "entries" WHERE ("entries".task_id = 1) [0m
+  [4;36;1mEntry Load (0.2ms)[0m   [0;1mSELECT * FROM "entries" WHERE ("entries".task_id = 2) [0m
+Completed in 28ms (View: 16, DB: 1) | 200 OK [http://localhost/tasks]
+
+
+Processing SessionsController#destroy (for 127.0.0.1 at 2011-02-17 14:47:28) [GET]
+Redirected to http://localhost:3000/
+Completed in 2ms (DB: 0) | 302 Found [http://localhost/logout]
+
+
+Processing TasksController#index (for 127.0.0.1 at 2011-02-17 14:47:28) [GET]
+Redirected to http://localhost:3000/login
+Filter chain halted as [:login_required] rendered_or_redirected.
+Completed in 1ms (DB: 0) | 302 Found [http://localhost/]
+
+
+Processing SessionsController#new (for 127.0.0.1 at 2011-02-17 14:47:28) [GET]
+Rendering template within layouts/application
+Rendering sessions/new
+Completed in 4ms (View: 2, DB: 0) | 200 OK [http://localhost/login]
