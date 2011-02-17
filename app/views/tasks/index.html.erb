@@ -3,7 +3,7 @@
 <div id="date_for_timesheet">
 	<% form_tag time_sheet_path do %>
 		<p>
-			Generate time sheet from
+			Generate time sheet for
 			<%= select_date @begin_sheet_date, :discard_day => true %>
 			<%= submit_tag "Generate" %>
 		</p>
