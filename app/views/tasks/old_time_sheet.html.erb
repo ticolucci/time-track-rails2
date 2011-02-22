@@ -1,0 +1,33 @@
+<%= title "Time Sheet"%>
+<h2> <%=h @from_date.strftime("%b %Y") %>  </h2>
+
+
+<% form_tag time_sheet_download_path do %>
+	<p>
+		<%= select_date @from_date, :discard_day => true %> <%= submit_tag "Download" %> 
+	</p>
+<% end %>
+
+<div class="scrollable">
+	<table border="3" cellspacing="3" cellpadding="5">
+		<% @table_trans.each do |row| %>
+			<tr>
+			<% row.each_with_index do |item, index| %>
+				<td>
+					<% if index == 0 || index == 1 || index == (row.size - 1) %>
+						<strong>
+					<% end %>
+					<%= item %>
+					<% if index == 0 || index == 1 || index == (row.size - 1) %>
+						</strong>
+					<% end %>
+				</td>
+			<% end %>
+			</tr>
+		<% end %>
+	</table>
+</div>
+
+<h3>Total of hours: <strong><%=h @days_total_sum %></strong></h3>
+
+<%= link_to 'Back', :back %>

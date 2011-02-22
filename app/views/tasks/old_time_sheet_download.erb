@@ -1,0 +1,9 @@
+<%=h @from_date.strftime("%b %Y") %>
+
+<% @table_trans.each do |row|; %><% row.each do |item|; %> <%= item ;%> ;<% end %>
+<% end %>
+
+Total of hours;<%=h @days_total_sum %>
+
+
+
