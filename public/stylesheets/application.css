@@ -19,7 +19,7 @@ a {
 }
 
 #container {
-  width: 75%;
+  width: 860px;
   margin: 0 auto;
   background-color: #FFF;
   padding: 20px 40px;
@@ -69,6 +69,16 @@ a {
   margin: 0;
   background-color: #c00;
   color: #fff;
+}
+
+.task {
+	border: solid 1px black	;
+	padding-bottom: 5px;
+}
+
+.action_link {
+	font-size: 0.8em;
+	padding-left: 5px;
 }
 
 .error_messages p {

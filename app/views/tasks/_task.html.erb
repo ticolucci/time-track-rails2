@@ -1,0 +1,14 @@
+<tr class="task">
+	<td><%= task.description %></td>
+	<td>
+		<ul><% task.entries.sort.each do |entry| %> 
+			<li> At <%= entry.begin %> for <%=h pluralize entry.duration, 'hour' %>
+				<%= link_to "Edit", edit_task_entry_path(task, entry), :class => "action_link" %>
+				<%= link_to "Destroy", task_entry_path(task, entry), :confirm => 'Are you sure you want to delete this entry?', :method => :delete, :class => "action_link"  %> </li>
+				<% end %>
+		</ul>
+	</td>
+	<td style="padding-right: 15px"><%= link_to "Add Entry", new_task_entry_path(task) %></td>
+		<td><%= link_to "Edit Task", edit_task_path(task) %></td>
+		<td><%= link_to "Destroy Task", task, :confirm => 'Are you sure you want to delete tis task?', :method => :delete %></td>
+	</tr>
